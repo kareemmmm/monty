@@ -43,6 +43,7 @@ typedef struct instruction_s
  * @arg: argument of the opcode
  * @file: pointer to the monty file
  * @content: line content
+ * @format: data format, 0 for stack (LIFO), 1 for queue (FIFO)
  * Description: carries values through the program
  */
 typedef struct bus_s
@@ -50,6 +51,7 @@ typedef struct bus_s
         char *arg;
         FILE *file;
         char *content;
+        int format;
 } bus_t;
 
 extern bus_t bus;
@@ -68,5 +70,13 @@ void f_add(stack_t **head, unsigned int number);
 void f_nop(stack_t **head, unsigned int number);
 void f_div(stack_t **head, unsigned int number);
 void f_mul(stack_t **head, unsigned int number);
+
+/* Advanced Opcode Functions */
+void f_pchar(stack_t **head, unsigned int number);
+void f_pstr(stack_t **head, unsigned int number);
+void f_rotl(stack_t **head, unsigned int number);
+void f_rotr(stack_t **head, unsigned int number);
+void f_stack(stack_t **head, unsigned int number);
+void f_queue(stack_t **head, unsigned int number);
 
 #endif /* MONTY_H */

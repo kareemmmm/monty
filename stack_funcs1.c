@@ -1,7 +1,7 @@
 #include "monty.h"
 
 /**
- * f_push - add node to the stack
+ * f_push - add node to the stack (or queue)
  * @head: stack head
  * @counter: line_number
  * Return: no return
@@ -9,7 +9,7 @@
 void f_push(stack_t **head, unsigned int counter)
 {
         int n, j = 0, flag = 0;
-        stack_t *new_node; /* Moved declaration to the top for C89 compliance */
+        stack_t *new_node, *tail;
 
         if (!bus.arg)
                 flag = 1;
@@ -43,6 +43,18 @@ void f_push(stack_t **head, unsigned int counter)
                 exit(EXIT_FAILURE);
         }
         new_node->n = n;
+
+        if (bus.format == 1 && *head != NULL)
+        {
+                tail = *head;
+                while (tail->next)
+                        tail = tail->next;
+                tail->next = new_node;
+                new_node->prev = tail;
+                new_node->next = NULL;
+                return;
+        }
+
         new_node->next = *head;
         new_node->prev = NULL;
         if (*head)
